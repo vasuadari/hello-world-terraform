@@ -1,0 +1,8 @@
+# Terraform files
+*.tfstate
+*.tfstate.backup
+*.terraform
+
+# Vim files
+*.swp
+*.swo
