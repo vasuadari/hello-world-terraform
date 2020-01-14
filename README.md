@@ -52,3 +52,7 @@ incoming traffic to public subnets and outgoing to internet.
 5. Run `terraform plan` to check the resources to be created
 
 6. Run `terraform apply` to setup the complete infrastructure and to deploy the application
+
+## References
+
+[Architecture Diagram](docs/architecutre.md)
