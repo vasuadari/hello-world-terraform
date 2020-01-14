@@ -39,18 +39,33 @@ resource "aws_route_table" "public" {
 }
 
 # Create a public subnet
-resource "aws_subnet" "public" {
+resource "aws_subnet" "public-a" {
   vpc_id = aws_vpc.main.id
-  availability_zone = var.subnet.public.availability_zone
-  cidr_block = var.subnet.public.cidr_block
+  availability_zone = var.subnet.public-a.availability_zone
+  cidr_block = var.subnet.public-a.cidr_block
 
   tags = {
     Name = "public subnet"
   }
 }
 
-resource "aws_route_table_association" "public" {
-  subnet_id = aws_subnet.public.id
+resource "aws_subnet" "public-b" {
+  vpc_id = aws_vpc.main.id
+  availability_zone = var.subnet.public-b.availability_zone
+  cidr_block = var.subnet.public-b.cidr_block
+
+  tags = {
+    Name = "public subnet"
+  }
+}
+
+resource "aws_route_table_association" "public-a" {
+  subnet_id = aws_subnet.public-a.id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "public-b" {
+  subnet_id = aws_subnet.public-b.id
   route_table_id = aws_route_table.public.id
 }
 
@@ -66,7 +81,7 @@ resource "aws_eip" "ngw" {
 # Create NAT Gateway
 resource "aws_nat_gateway" "gw" {
   allocation_id = aws_eip.ngw.id
-  subnet_id     = aws_subnet.public.id
+  subnet_id     = aws_subnet.public-a.id
 
   tags = {
     Name = "gw NAT"
@@ -101,5 +116,22 @@ resource "aws_subnet" "private" {
 resource "aws_route_table_association" "private" {
   subnet_id = aws_subnet.private.id
   route_table_id = aws_route_table.private.id
+}
+
+# Output values
+output "id" {
+  value = aws_vpc.main.id
+}
+
+output "public_a_subnet_id" {
+  value = aws_subnet.public-a.id
+}
+
+output "public_b_subnet_id" {
+  value = aws_subnet.public-b.id
+}
+
+output "private_subnet_id" {
+  value = aws_subnet.private.id
 }
 

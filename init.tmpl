@@ -1,0 +1,29 @@
+#! /bin/bash -xe
+
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+
+WORKING_DIR=/opt/hello-world
+
+export DOCKER_COMPOSE_PATH=$WORKING_DIR/docker-compose.yml
+
+export VIRTUAL_HOST=${dns_name}
+
+echo "Started installing docker"
+
+curl https://gist.githubusercontent.com/vasuadari/2d208513e2de30f4e747c0287c888bec/raw/b5a45f0b094112a136114a563ad0bc3e4dbad852/install_docker.sh | sudo sh
+
+echo "Completed installing docker"
+
+echo "Install git"
+
+apt update && apt install git
+
+mkdir -p $WORKING_DIR
+
+echo "Cloning hello-world app from github repo"
+
+git clone https://github.com/vasuadari/hello-world.git $WORKING_DIR
+
+cd $WORKING_DIR && ./scripts/start_app.sh
+
+echo $VIRTUAL_HOST
