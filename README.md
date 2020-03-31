@@ -55,4 +55,4 @@ incoming traffic to public subnets and outgoing to internet.
 
 ## References
 
-[Architecture Diagram](docs/architecutre.md)
+[Architecture Diagram](docs/architecture.pdf)
