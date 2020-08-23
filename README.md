@@ -35,7 +35,7 @@ incoming traffic to public subnets and outgoing to internet.
 
 3. Attaches target group A with t2.micro instance in which app is deployed
 
-4. Adds a listener rule to foward the incoming requests to target group A
+4. Adds a listener rule to forward the incoming requests to target group A
 
 ### Instructions to use terraform
 
@@ -49,9 +49,9 @@ incoming traffic to public subnets and outgoing to internet.
 
 4. Run `terraform init` to initializes all the plugins and modules
 
-5. Run `terraform plan` to check the resources to be created
+5. Run `terraform plan -var healthcheck_path=/_ping` to check the resources to be created
 
-6. Run `terraform apply` to setup the complete infrastructure and to deploy the application
+6. Run `terraform apply -var healthcheck_path=/_ping` to setup the complete infrastructure and to deploy the application
 
 ## References
 

@@ -22,7 +22,7 @@ mkdir -p $WORKING_DIR
 
 echo "Cloning hello-world app from github repo"
 
-git clone https://github.com/vasuadari/hello-world.git $WORKING_DIR
+git clone --single-branch --branch elixir https://github.com/vasuadari/hello-world.git $WORKING_DIR
 
 cd $WORKING_DIR && ./scripts/start_app.sh
 

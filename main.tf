@@ -109,7 +109,7 @@ resource "aws_lb_target_group" "hello-world" {
   vpc_id = module.vpc.id
 
   health_check {
-    path = "/healthcheck"
+    path = var.healthcheck_path
     port = 80
   }
 }
