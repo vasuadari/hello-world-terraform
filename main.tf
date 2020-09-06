@@ -82,8 +82,6 @@ resource "aws_lb" "web" {
   security_groups = [aws_security_group.http.id, aws_security_group.web-lb-egress.id]
   subnets = [module.vpc.public_a_subnet_id, module.vpc.public_b_subnet_id]
 
-  enable_deletion_protection = true
-
   tags = {
     Environment = "production"
   }
@@ -129,4 +127,8 @@ resource "aws_lb_listener" "hello_world" {
     type = "forward"
     target_group_arn = aws_lb_target_group.hello-world.arn
   }
+}
+
+output "alb_address" {
+  value = "${aws_lb.web.dns_name}"
 }
